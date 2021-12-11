@@ -1,0 +1,111 @@
+#maCarte { 
+	height: 750px; 
+	 width: 75%;
+	 
+	 left: 15px;
+}
+
+
+
+.CadreRestriction{
+	position: fixed;
+	top: 70px;
+	background-color: rgb(132,132,130);
+	color: #FFFAFA;
+	width: 20%;
+	height: 35em;
+	font-size: 1em;
+	margin-left: 77%;
+	text-align: center;	
+
+}
+
+
+
+.LeBoutton{
+	margin-left: 3em;
+}
+
+*{
+	font-family: "Roboto Condensed";
+}
+
+.Niveau1{
+	color: orange;
+}
+
+.Niveau2{
+	color: #C41410;
+}
+
+.titre{
+	text-align: center;
+	color: black;
+}
+
+
+
+table {
+	width: 40%;
+	margin-left: 30%;
+	border: solid 1px #000000;
+}
+
+
+h2{
+	text-align: center;
+}
+h3{
+	text-align: center;
+	color: #4679bd
+}
+
+th{
+	text-align: center;
+	color: #4679bd
+}
+tbody > tr:nth-of-type(even) {
+	background-color: #daeaff;
+	
+
+}
+
+button{
+	cursor: pointer;
+	margin-left: 3em;
+}
+.manualButton {
+			padding:15px 30px;
+			background-color: #308ba2;
+			margin-left: 40px;
+			text-decoration: none;
+			font-weight: 900;
+			color: white;
+			text-transform:uppercase;
+			transition: background-color .5s;
+			border: none;
+    		border-radius: 2px;			
+    		cursor: pointer;
+}
+
+.Select_piara{
+	margin-left: 3em;
+}
+
+#map.leaflet-fullscreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: ;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.leaflet-control-fullscreen {
+    background-image: url(icon/fullscreen.jpg);
+}
+

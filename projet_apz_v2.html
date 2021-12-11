@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" lang="fr">
+	<title>PIARA DREAL</title>
+	<!--------------------------------Inclusion Lefalet CSS--------------------------------------------------------->
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="crossorigin=""/>
+	<!--------------------------------Style classe #maCarte-------------------------------------------------------->
+	<link type="text/css" rel="stylesheet" href="maCarte_Style.css" media="all"/>
+	<!--------------------------------Insertion fichier javascript : départements--------------------------------->
+ 	<script src="data_js/dptARAgeojson.js" type="text/javascript"></script>
+	<!--------------------------------Insertion fichier javascript : geometrie geojson tronçons------------------->
+	<script src="data_js/tronconGeojson.js" type="text/javascript"></script>
+	<!--------------------------------Insertion fichier javascript : geometrie geojson extremités tronçons-------->
+ 	<script src="data_js/extremiteTronconGeojson.js" type="text/javascript"></script>
+ 	<!--------------------------------Insertion fichier javascript : geometrie geojson col rampe et secteur enneigé-------->
+ 	<script src="data_js/colRampeNeige.js" type="text/javascript"></script>
+ 	<!--------------------------------Insertion fichier javascript : geometrie geojson tunnel -------->
+ 	<script src="data_js/tunnelsPiara.js" type="text/javascript"></script>
+ 	<!--------------------------------Insertion fichier javascript : geometrie geojson Secteur piara-------->
+ 	<script src="data_js/SecteurPiara.js" type="text/javascript"></script>
+ 	<!--------------------------------Insertion fichier javascript : geometrie geojson reseau secondaire-------->
+ 	<script src="data_js/tronconAnnexe.js" type="text/javascript"></script>
+ 	<!--------------------------------Insertion fichier javascript : fichier export tableau-------->
+ 	<script src="projet_apz_JS_Export.js" type="text/javascript"></script>
+
+
+	<script src="data_js/tronconGestionnaire2.js" type="text/javascript"></script>
+ 	
+ 	<!--------------------------------Inclusion javascript lealflet---------------------------------------------------->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<!--------------------------------Inclusion Lefalet ZOOM--------------------------------------------------------->
+	<script src="leaflet.zoomfs.js"></script>
+	<!--------------------------------Inclusion Lefalet échelle style et js -------------------------------------------->
+	<link rel="stylesheet" href="https://daniellsu.github.io/leaflet-betterscale/L.Control.BetterScale.css" />
+    <script src="https://daniellsu.github.io/leaflet-betterscale/L.Control.BetterScale.js"></script>
+
+  
+</head>
+<body class="easyPrint">
+<!--------------------------------Titre de la page----------------------------------------------->
+<section id="titre">
+<h1 class="titre">Restriction du réseau primaire PIARA</h1>
+</section>
+<!--------------------------------Insertion carte : carte et tronçons---------------------------------------------->
+<div id="maCarte"></div>
+<!--------------------------------Formulaire changement restriction----------------------------------------------->
+	<div id=Form class="CadreRestriction">
+			<p>Niveau de restriction :</p>
+  			<input type="radio" id="Niveau0" name="Niveau" value="0" checked=checked>
+  			<label for="Niveau0" class="Niveau0">Niveau 0 : Aucune restriction</label><br>
+  			<input type="radio" id="Niveau1" name="Niveau" value="1">
+ 			<label for="Niveau1" class="Niveau1">Niveau 1 : Interdiction PL</label><br>  
+			<input type="radio" id="Niveau2" name="Niveau" value="2" class="Niveau2">
+ 			<label for="Niveau2" class="Niveau2">Niveau 2 : Axe coupé</label><br><br>
+ 			<button class="LeBoutton" id="LeBoutton" type="button">Appliquer le niveau de restriction</button>
+ 			<p id="feedback">Informations tronçon : <p id="info" style="color: black">Cliquez sur un tronçon pour afficher ses informations</p></p>
+ 			<p id="feedback">Choix d'exportation : </p>
+ 			<a href="#Redirect" onclick="nav()" id="nav">Consulter le tableau avec les restriction</a><br><br>
+ 			<!--<a href="#titre" id="na2v">Consulter la carte</a><br>-->
+ 			<button onclick="exportTableToCSV('restriction.csv')">Exporter les restriction en CSV</button>
+ 			<br><br>
+ 			<p id="feedback">Choix du secteur Piara : </p>
+ 			<select name="Select_piara" class="Select_piara">
+ 				<option selected="yes" id="defaut" name="defaut">-----Choisissez un secteur piara-----</option>
+ 				<option onclick="View_Piara()" id="Piara0" name="Piara0">(00)_Vue global</option>	
+				<option onclick="View_Piara()" id="Piara1" name="Piara1">(01)_A40 Mâcon Genève</option>
+				<option onclick="View_Piara()" id="Piara2" name="Piara2">(02)_A40 Genève Italie</option>
+				<option onclick="View_Piara()" id="Piara3" name="Piara3">(03)_A41 Chambéry Genève</option>
+				<option onclick="View_Piara()" id="Piara4" name="Piara4">(04)_A43 Lyon Chambéry</option>
+				<option onclick="View_Piara()" id="Piara5" name="Piara5">(05)_A43 Chambéry Italie</option>
+				<option onclick="View_Piara()" id="Piara6" name="Piara6">(06)_A48 A49 A41S Grenoble</option>
+				<option onclick="View_Piara()" id="Piara7" name="Piara7">(07)_Vienne Valence</option>
+				<option onclick="View_Piara()" id="Piara8" name="Piara8">(08)_Valence Orange</option>
+				<option onclick="View_Piara()" id="Piara9" name="Piara9">(09)_Belleville Vienne</option>
+				<option onclick="View_Piara()" id="Piara10" name="Piara10">(10)_A47 A72 N88 Saint-Étienne</option>
+				<option onclick="View_Piara()" id="Piara11" name="Piara11">(11)_N7 A89 Roanne Balbigny Lyon</option>
+				<option onclick="View_Piara()" id="Piara12" name="Piara12">(12)_CAA A89 Est</option>
+				<option onclick="View_Piara()" id="Piara13" name="Piara13">(13)_CAA A71</option>
+				<option onclick="View_Piara()" id="Piara14" name="Piara14">(14)_CAA A89 Ouest</option>
+				<option onclick="View_Piara()" id="Piara15" name="Piara15">(15)_CAA A75</option>
+				<option onclick="View_Piara()" id="Piara16" name="Piara16">(16)_RCEA N7 Moulins</option>
+				<option onclick="View_Piara()" id="Piara17" name="Piara17">(17)_N88-N102 Le Puy</option>
+			</select>
+ 			<br><br>
+ 			<button class="manualButton" onclick="manualPrint()">Futur bouton enregistrement carte</button>
+ 	</div> 
+ <!--------------------------------Insertion fichier  fonction javascript : projet_apz_JS--------------------------------->
+<script src="projet_apz_JS.js" type="text/javascript"></script>
+<br><br><br><br>
+<section id="Redirect">
+<h3>Tableau récapitulatif des tronçons et leur niveau de restriction</h3>
+<p id="Tableau"></p>
+</section>
+<!--------------------------------Insertion fichier tableau javascript : projet_apz_Tableau--------------------------------->
+<script src="projet_apz_Tableau.js" type="text/javascript"></script>
+<script src="dist/bundle.js"></script>
+<!----------Insertion javascript : Fonction permettant l'ajout des boutons d'enrengistrement d'image------------------->
+<script type="text/javascript">
+
+
+var printer = L.easyPrint({
+      		tileLayer: myTileLayer,
+      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      		filename: 'Carte_tronçon_',
+      		exportOnly: true,
+      		hideControlContainer: true
+		}).addTo(carte);
+
+
+
+function manualPrint () {
+			printer.printMap(Format, 'Carte_tronçon_')
+		}
+
+</script>
+</body>
+</html>
